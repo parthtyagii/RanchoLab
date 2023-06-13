@@ -3,10 +3,24 @@ import { ImArrowDown, ImArrowLeft, ImArrowRight, ImArrowUp } from 'react-icons/i
 import { FaPlay } from 'react-icons/fa';
 import { MdOutlineReplay } from 'react-icons/md';
 
-const ControlPanel = ({ playHandler, resetHandler }) => {
+const ControlPanel = ({ setSampleMaze, setDisplayInstructions, Play, instructions, setInstructions, reset, setReset }) => {
 
     const handleDragStart = (e, arrow) => {
         e.dataTransfer.setData('arrow', arrow);
+    }
+
+    const playHandler = () => {
+        setSampleMaze();
+        setDisplayInstructions([]);
+        Play(0, 0, 0, instructions);
+    }
+
+    const resetHandler = () => {
+        const arr = new Array(14).fill('');
+        setInstructions(arr);
+        setReset(!reset);
+        setSampleMaze();
+        setDisplayInstructions([]);
     }
 
     return (

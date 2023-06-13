@@ -11,7 +11,7 @@ import Learn from '../Learn/Learn';
 const Main = () => {
 
     const [instructions, setInstructions] = useState(null);
-    const [reset, setReset] = useState();
+    const [reset, setReset] = useState(true);
     const [maze, setMaze] = useState();
     const [displayInstructions, setDisplayInstructions] = useState([]);
 
@@ -27,7 +27,7 @@ const Main = () => {
                 let move = '... Robot reached the destination!';
                 setDisplayInstructions(displayInstructions => [...displayInstructions, move]);
             }
-            else{
+            else {
                 let move = "... Robot hasn't reached the destination!";
                 setDisplayInstructions(displayInstructions => [...displayInstructions, move]);
             }
@@ -109,24 +109,9 @@ const Main = () => {
         setMaze(sampleMaze);
     }
 
-    const playHandler = () => {
-        setSampleMaze();
-        setDisplayInstructions([]);
-        Play(0, 0, 0, instructions);
-    }
-
-    const resetHandler = () => {
-        const arr = new Array(14).fill('');
-        setInstructions(arr);
-        setReset(!reset);
-        setSampleMaze();
-        console.log('reset called!')
-    }
-
     useEffect(() => {
         const arr = new Array(14).fill('');
         setInstructions(arr);
-        setReset(true);
         setSampleMaze();
     }, []);
 
@@ -150,7 +135,7 @@ const Main = () => {
 
                 <div className="w-[100%] h-[70vh] p-[3rem] flex gap-x-[10%] justify-start items-center bg-[#1a247b] ">
 
-                    <RobotMaze maze={maze} instructions={instructions} />
+                    <RobotMaze maze={maze} />
                     <Instructions displayInstructions={displayInstructions} />
 
                 </div>
@@ -161,7 +146,7 @@ const Main = () => {
                     <LogicPanel reset={reset} instructions={instructions} setInstructions={setInstructions} />
                 </div>
 
-                <ControlPanel playHandler={playHandler} resetHandler={resetHandler} />
+                <ControlPanel setSampleMaze={setSampleMaze} setDisplayInstructions={setDisplayInstructions} Play={Play} instructions={instructions} setInstructions={setInstructions} reset={reset} setReset={setReset} />
             </div>
 
         </div>

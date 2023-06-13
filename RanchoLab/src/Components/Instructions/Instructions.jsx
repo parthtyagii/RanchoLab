@@ -8,7 +8,7 @@ const Instructions = ({ displayInstructions }) => {
             <div className="w-[100%] h-auto text-[1.8rem] font-[500] underline px-[2rem] p-[1rem] bg-[#5a6bff] ">Instructions Implemented</div>
 
             <div className="w-[100%] h-[calc(100%-4.8rem)] flex p-[2rem] ">
-                <div className="w-[100%] h-[100%] overflow-y-scroll  flex flex-col justify-start items-start ">
+                <div className="w-[100%] h-[100%] overflow-y-scroll custom-scroll  flex flex-col justify-start items-start ">
                     {
                         displayInstructions.map((instruct, index) => {
 

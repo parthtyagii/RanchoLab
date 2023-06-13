@@ -24,7 +24,7 @@ const LogicPanelItem = ({ setInstructions, instructions, index, reset }) => {
 
     const dropHandler = (e) => {
         // console.log('dropped!');
-        console.log(e.dataTransfer.getData('arrow'));
+        // console.log(e.dataTransfer.getData('arrow'));
         setArrow(e.dataTransfer.getData('arrow'));
 
         let arr = [...instructions];

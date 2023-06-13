@@ -14,8 +14,8 @@ const Main = () => {
 
     const [instructions, setInstructions] = useState(null);
     const [reset, setReset] = useState();
-    const [canPlay, setCanPlay] = useState();
     const [maze, setMaze] = useState();
+    const [displayInstructions, setDisplayInstructions] = useState([]);
 
 
     const handleDragStart = (e, arrow) => {
@@ -23,66 +23,80 @@ const Main = () => {
     }
 
     const Play = (i, x, y, instructions) => {
-        if (!canPlay) {
-            return;
-        }
 
         while (i < 14 && instructions[i] === '') {
             i++;
         }
 
         if (i === 14) {
+            if (x === 4 && y === 4) {
+                let move = '... Robot reached the destination!';
+                setDisplayInstructions(displayInstructions => [...displayInstructions, move]);
+            }
             return;
         }
         else {
             setTimeout(() => {
+                let move = '';
                 if (instructions[i] === 'left' && x !== 0) {
                     x--;
+                    move = 'Robot Move Left';
                 }
-                else if (instructions[i] === 'right' && x !== 3) {
+                else if (instructions[i] === 'right' && x !== 4) {
                     x++;
+                    move = 'Robot Move Right';
                 }
                 else if (instructions[i] === 'up' && y !== 0) {
                     y--;
+                    move = 'Robot Move Up';
                 }
-                else if (instructions[i] === 'down' && y !== 3) {
+                else if (instructions[i] === 'down' && y !== 4) {
                     y++;
+                    move = 'Robot Move Down';
                 }
 
-                console.log(x, y);
+                setDisplayInstructions(displayInstructions => [...displayInstructions, move]);
 
                 //now
-                const count = (y * 5) + x;
-                const sampleMaze = [];
-                for (let i = 0; i < 25; i++) {
-                    if (i === count) {
-                        if (i !== 24) {
-                            sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black '><GiRobotGolem /></span>);
+                setMaze(maze => {
+                    const count = (y * 5) + x;
+                    const sampleMaze = [];
+                    for (let i = 0; i < 25; i++) {
+                        if (i === count) {
+                            if (i !== 24) {
+                                sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black '><GiRobotGolem /></span>);
+                            }
+                            else {
+                                sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black bg-red-500 '><GiRobotGolem /></span>);
+                            }
                         }
                         else {
-                            sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black bg-red-500 '><GiRobotGolem /></span>);
+                            if (i !== 24) {
+                                sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black '></span>);
+                            }
+                            else {
+                                sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black bg-red-500 '></span>);
+                            }
                         }
                     }
-                    else {
-                        if (i !== 24) {
-                            sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black '></span>);
-                        }
-                        else {
-                            sampleMaze.push(<span key={i} className='w-[100%] h-[100%] flex justify-center items-center text-[4rem] border-[1px] border-black bg-red-500 '></span>);
-                        }
-                    }
-                }
-                setMaze(sampleMaze);
+                    return sampleMaze;
+                });
+
                 Play(i + 1, x, y, instructions);
-            }, 1000);
+            }, 500);
         }
+    }
+
+    const playHandler = () => {
+        setSampleMaze();
+        setDisplayInstructions([]);
+        Play(0, 0, 0, instructions);
     }
 
     const resetHandler = () => {
         const arr = new Array(14).fill('');
         setInstructions(arr);
         setReset(!reset);
-        setCanPlay(true);
         setSampleMaze();
         console.log('reset called!')
     }
@@ -107,7 +121,6 @@ const Main = () => {
         const arr = new Array(14).fill('');
         setInstructions(arr);
         setReset(true);
-        setCanPlay(true);
         setSampleMaze();
     }, []);
 
@@ -153,7 +166,7 @@ const Main = () => {
                 <div className="w-[100%] h-[70vh] p-[3rem] flex gap-x-[10%] justify-start items-center bg-[#1a247b] ">
 
                     <RobotMaze maze={maze} instructions={instructions} />
-                    <Instructions instructions={instructions} />
+                    <Instructions displayInstructions={displayInstructions} />
 
                 </div>
 
@@ -191,12 +204,12 @@ const Main = () => {
                     <button draggable={true} onDragStart={(e) => handleDragStart(e, 'right')} className='w-[4.8rem] h-[4.8rem] text-[2.2rem] p-[1rem] flex justify-center items-center rounded-[0.2rem] bg-gray-200 '>
                         <ImArrowRight />
                     </button>
-                    <button className='min-w-[4.8rem] h-[4.8rem] text-[2.1rem] font-[500] ml-[2rem] px-[2rem] p-[1rem] flex gap-x-[1rem] justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
+                    <button onClick={() => playHandler()} className='min-w-[4.8rem] h-[4.8rem] text-[2.1rem] font-[500] ml-[2rem] px-[2rem] p-[1rem] flex gap-x-[1rem] justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
                         <FaPlay />
-                        <span onClick={() => Play(0, 0, 0, instructions)} >Play</span>
+                        <span>Play</span>
                     </button>
-                    <button className='w-[4.8rem] h-[4.8rem] text-[3rem] p-[1rem] flex justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
-                        <MdOutlineReplay onClick={() => resetHandler()} />
+                    <button onClick={() => resetHandler()} className='w-[4.8rem] h-[4.8rem] text-[3rem] p-[1rem] flex justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
+                        <MdOutlineReplay />
                     </button>
                 </div>
 

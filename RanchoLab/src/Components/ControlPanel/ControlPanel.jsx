@@ -3,7 +3,7 @@ import { ImArrowDown, ImArrowLeft, ImArrowRight, ImArrowUp } from 'react-icons/i
 import { FaPlay } from 'react-icons/fa';
 import { MdOutlineReplay } from 'react-icons/md';
 
-const ControlPanel = () => {
+const ControlPanel = ({ playHandler, resetHandler }) => {
 
     const handleDragStart = (e, arrow) => {
         e.dataTransfer.setData('arrow', arrow);
@@ -23,11 +23,11 @@ const ControlPanel = () => {
             <button draggable={true} onDragStart={(e) => handleDragStart(e, 'right')} className='w-[4.8rem] h-[4.8rem] text-[2.2rem] p-[1rem] flex justify-center items-center rounded-[0.2rem] bg-gray-200 '>
                 <ImArrowRight />
             </button>
-            <button className='min-w-[4.8rem] h-[4.8rem] text-[2.1rem] font-[500] ml-[2rem] px-[2rem] p-[1rem] flex gap-x-[1rem] justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
+            <button onClick={() => playHandler()} className='min-w-[4.8rem] h-[4.8rem] text-[2.1rem] font-[500] ml-[2rem] px-[2rem] p-[1rem] flex gap-x-[1rem] justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
                 <FaPlay />
-                <span >Play</span>
+                <span>Play</span>
             </button>
-            <button className='w-[4.8rem] h-[4.8rem] text-[3rem] p-[1rem] flex justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
+            <button onClick={() => resetHandler()} className='w-[4.8rem] h-[4.8rem] text-[3rem] p-[1rem] flex justify-center items-center rounded-[0.2rem] text-[#5a6bff] bg-[#ffc700] '>
                 <MdOutlineReplay />
             </button>
         </div>

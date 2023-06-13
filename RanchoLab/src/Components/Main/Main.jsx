@@ -141,7 +141,7 @@ const Main = () => {
                 </div>
 
                 <div className="w-[100%] h-[22vh] flex flex-col justify-between py-[2rem] px-[3rem] bg-[#5a6bff] ">
-                    <div className='w-[100%] text-[1.8rem] font-[700] flex text-white '>Logic Panel</div>
+                    <div className='w-[100%] text-[1.8rem] font-[600] flex text-white '>Logic Panel</div>
 
                     <LogicPanel reset={reset} instructions={instructions} setInstructions={setInstructions} />
                 </div>

@@ -116,9 +116,9 @@ const Main = () => {
     }, []);
 
     return (
-        <div className='w-full h-[115vh] flex justify-start items-center bg-red-200 '>
+        <div className='w-full h-[115vh] flex flex-col md:flex-row justify-start items-center '>
 
-            <div className="leftPart w-[30%] h-[100%] flex flex-col justify-start items-start bg-yellow-200  ">
+            <div className="leftPart w-[100%] md:w-[30%] h-[100%] flex flex-col justify-start items-start  ">
                 <div className="w-[100%] h-[8vh] pl-[2rem] flex justify-start items-center bg-gray-300 ">
                     <HiOutlineBookOpen className='text-[3.2rem] text-black ' />
                     <span className='text-[2.3rem] ml-[1rem] font-[500] text-black '>Learn</span>
@@ -127,20 +127,20 @@ const Main = () => {
                 <Learn />
             </div>
 
-            <div className="rightPart w-[70%] h-[100%] flex flex-col justify-start items-center bg-green-300 ">
+            <div className="rightPart w-[100%] md:w-[70%] h-[100%] flex flex-col justify-start items-center">
                 <div className="w-[100%] h-[8vh] pl-[2rem] text-white flex justify-start items-center bg-[#190a4d] ">
                     <GiPuzzle className='text-[2.5rem] ' />
                     <span className='text-[2.3rem] ml-[1rem] font-[500 '>Build</span>
                 </div>
 
-                <div className="w-[100%] h-[70vh] p-[3rem] flex gap-x-[10%] justify-start items-center bg-[#1a247b] ">
+                <div className="w-[100%] h-[70vh] p-[3rem] flex gap-x-[10%] flex-col md:flex-row justify-between items-center bg-[#1a247b] ">
 
                     <RobotMaze maze={maze} />
                     <Instructions displayInstructions={displayInstructions} />
 
                 </div>
 
-                <div className="w-[100%] h-[22vh] flex flex-col justify-between py-[2rem] px-[3rem] bg-[#5a6bff] ">
+                <div className="w-[100%] h-auto md:h-[22vh] flex flex-col justify-between gap-y-[2rem] md:gap-[0] py-[2rem] px-[3rem] bg-[#5a6bff] ">
                     <div className='w-[100%] text-[1.8rem] font-[600] flex text-white '>Logic Panel</div>
 
                     <LogicPanel reset={reset} instructions={instructions} setInstructions={setInstructions} />

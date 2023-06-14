@@ -16,7 +16,7 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full h-auto bg-green-300 absolute flex flex-col justify-start items-center ">
+    <div className="w-full h-auto absolute flex flex-col justify-start items-center ">
 
       {loader ? (
         <div className='w-screen h-screen flex justify-center items-center relative top-0 bg-white '>
